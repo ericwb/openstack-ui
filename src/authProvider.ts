@@ -58,18 +58,24 @@ export const authProvider: AuthProvider = {
     }
 
     const subjectToken = response.headers.get("X-Subject-Token");
-    console.log("X-Subject-Token:", subjectToken);
-    localStorage.setItem("authToken", subjectToken);
+    localStorage.setItem("token", subjectToken);
 
-    const auth = await response.json();
-    console.log(JSON.stringify(auth));
-    localStorage.setItem("token", JSON.stringify(auth));
+    const data = await response.json();
+
+    if (data && data.token && data.token.user) {
+      localStorage.setItem("user_id", data.token.user.id);
+      localStorage.setItem("username", data.token.user.name);
+    } else {
+      console.error("Invalid token structure:", responseData);
+    }
 
     return Promise.resolve();
   },
 
   logout: () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("username");
     return Promise.resolve();
   },
 

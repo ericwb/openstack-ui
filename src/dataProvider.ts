@@ -7,7 +7,7 @@ const httpClient = (url, options = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
     }
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
 
     if (token) {
       options.headers.set("X-Auth-Token", token);
@@ -34,7 +34,7 @@ export const dataProvider: DataProvider = {
         const objects = json[expectedResource]
         const total = objects ? objects.length : 0;
 
-        console.log(JSON.stringify(objects));
+        //onsole.log(JSON.stringify(objects));
 
         return {
             data: objects,
@@ -45,7 +45,12 @@ export const dataProvider: DataProvider = {
     getOne: async (resource, params) => {
         const url = `${apiUrl}/${resource}/${params.id}`
         const { json } = await httpClient(url, { signal: params.signal });
-        return { data: json };
+        const expectedResource = resource.split("/").pop().slice(0, -1);
+
+        const object = json[expectedResource]
+        console.log(JSON.stringify(object));
+
+        return { data: object };
     },
 
     getMany: async (resource, params) => {
