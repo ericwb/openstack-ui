@@ -11,14 +11,14 @@ import {
 } from "react-admin";
 
 const UserListActions = () => (
-    <TopToolbar>
-        <SelectColumnsButton />
-        <BulkExportButton />
-    </TopToolbar>
+  <TopToolbar>
+    <SelectColumnsButton />
+    <BulkExportButton />
+  </TopToolbar>
 );
 
 const userFilters = [
-    <SearchInput source="q" alwaysOn />
+  <SearchInput source="q" alwaysOn />
 ];
 
 export const UserList = () => (
