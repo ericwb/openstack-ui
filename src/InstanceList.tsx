@@ -11,7 +11,7 @@ import {
 
 const InstanceListActions = () => (
   <TopToolbar>
-    <CreateButton/>
+    <CreateButton />
     <SelectColumnsButton />
     <BulkExportButton />
   </TopToolbar>

@@ -19,6 +19,7 @@ const httpClient = (url, options = {}) => {
 export const dataProvider: DataProvider = {
 
     getList: async (resource, params) => {
+        console.log(resource)
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const query = {
@@ -30,11 +31,8 @@ export const dataProvider: DataProvider = {
         const { json, headers } = await httpClient(url, { signal: params.signal });
 
         const expectedResource = resource.split("/").pop();
-
         const objects = json[expectedResource]
         const total = objects ? objects.length : 0;
-
-        //onsole.log(JSON.stringify(objects));
 
         return {
             data: objects,
