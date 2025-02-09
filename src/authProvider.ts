@@ -11,7 +11,7 @@ export const authProvider: AuthProvider = {
     const osProjDomainName = "Default" 
     const osProjName = "admin"
 
-    const apiUrl = import.meta.env.VITE_SIMPLE_REST_URL + "identity/v3/auth/tokens?nocatalog";
+    const apiUrl = import.meta.env.VITE_SIMPLE_REST_URL + "identity/v3/auth/tokens";
 
     const body = { 
       auth: {
@@ -65,6 +65,7 @@ export const authProvider: AuthProvider = {
     if (data && data.token && data.token.user) {
       localStorage.setItem("user_id", data.token.user.id);
       localStorage.setItem("username", data.token.user.name);
+      localStorage.setItem("catalog", JSON.stringify(data.token.catalog));
     } else {
       console.error("Invalid token structure:", responseData);
     }
@@ -76,6 +77,7 @@ export const authProvider: AuthProvider = {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
     localStorage.removeItem("username");
+    localStorage.removeItem("catalog");
     return Promise.resolve();
   },
 
@@ -87,7 +89,6 @@ export const authProvider: AuthProvider = {
     return Promise.resolve();
   },
 
-
   checkAuth: () =>
     localStorage.getItem("token") ? Promise.resolve() : Promise.reject(),
 
@@ -96,10 +97,13 @@ export const authProvider: AuthProvider = {
   },
 
   getIdentity: () => {
-    const persistedUser = localStorage.getItem("token");
-    const token = persistedUser ? JSON.parse(persistedUser) : null;
+    const user = {
+        id: localStorage.getItem("user_id"),
+        fullName: localStorage.getItem("username"),
+        //avatar: data.avatar,
+    };
 
-    return Promise.resolve(token);
+    return Promise.resolve(user);
   },
 };
 

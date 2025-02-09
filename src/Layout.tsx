@@ -8,13 +8,13 @@ import {
   TitlePortal,
   UserMenu,
 } from "react-admin";
-import { Box, MenuItem,Toolbar } from '@mui/material';
+import { Box, MenuItem, Toolbar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 
+
 const CustomUserMenu = () => (
     <UserMenu>
-        <MenuItem>{localStorage.getItem("username")}</MenuItem>
         <Menu.Item
             to={`/identity/v3/users/${localStorage.getItem("user_id")}/show`}
             primaryText="Profile"
