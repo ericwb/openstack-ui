@@ -34,7 +34,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.3.3",
     "typescript": "^5.1.6",
-    "vite": "^6.2.1"
+    "vite": "^6.2.3"
   },
   "name": "openstack-ui"
 }
